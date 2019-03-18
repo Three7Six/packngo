@@ -49,11 +49,11 @@ You can also learn a lot from the `*_test.go` sources. Almost all out tests touc
 
 Linked resources in Get\* and List\* functions
 ----------------------------------------------
-Most of the Get and List functions have *GetOptions resp. *ListOptions paramters. If you supply them, you can specify which attributes of resources in the return set can be excluded or included. This is useful for linked resources, e.g members of a project, devices in a project. 
+Most of the Get and List functions have *GetOptions resp. *ListOptions parameters. You can specify which attributes of resources in the return set can be excluded or included. This is useful for linked resources, e.g members of a project, devices in a project. 
 
-Linked resources usually have only the `Href` attribute populated, allowing you to fetch them in another API call. But if you explicitly `include` the linked resoruce attribute, it will be populated in the result set of the linking resource.
+Linked resources usually have only the `Href` attribute populated, allowing you to fetch them in another API call. If you explicitly `include` the linked resoruce attribute, it will be populated in the result set of the linking resource.
 
-For example, if you want to list users in a project, you can fetch the project via `Projects.Get(pid, nil)` call. Result from the call will be a Project struct which has `Users []User` attribute. The items in the `[]User` slice only have the URL attribute non-zero, the rest of the fields will be type defaults. You can then parse the ID of the User resources and fetch them consequently. Or, you can use the ListOptions struct in the project fetch call to include the Users (`members` JSON tag) as 
+For example, if you want to list users in a project, you can fetch the project via `Projects.Get(pid, nil)` call. Result from the call will be a Project struct which has `Users []User` attribute. The items in the `[]User` slice only have the URL attribute non-zero, the rest of the fields will be type defaults. You can then parse the ID of the User resources and fetch them consequently or you can use the ListOptions struct in the project fetch call to include the Users (`members` JSON tag) as 
 
 ```go
 Projects.Get(pid, &packngo.ListOptions{Includes: []{'members'}})` 
